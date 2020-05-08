@@ -149,10 +149,19 @@ function httpd_config {
 	printf "$DONE"
 }
 
+function gen_config {
+	echo 'Not implemented'
+}
+
 function reset {
 	get_dependencies
 	#gen_config - not yet implemented
 	exit 0
+}
+
+function server {
+	cd "$( dirname "${BASH_SOURCE[0]}" )"
+	sudo ./dependencies/httpd/bin/apachectl $1
 }
 
 function print_help {
@@ -161,22 +170,28 @@ function print_help {
 	echo "--reset         [-r] : Re-install all dependencies and reset all config files"
 	echo "--dependencies  [-d] : Re-install all dependencies"
 	echo "--config        [-c] : reset all config files"
+	echo "--server [cmd]  [-s] : Run an apachectl command"
+	echo "    example: ./run.sh -s status (returns status of the server)"
 	echo "________________________________________________________________________________________________"
 }
 
 declare -A COMMANDS=([-h]=print_help [--help]=print_help \
+					[-s]=server [--server]=server \
 					[-r]=reset [--reset]=reset \
 					[-d]=get_dependencies [--dependencies]=get_dependencies \
 					[-c]=gen_config [--config]=gen_config)
 
 [ -z $1 ] && reset
-for ARG in "$@"; do
-	NEXT=${COMMANDS[${ARG}]}
+for (( i=1; i<=$#; i++)); do
+	NEXT=${COMMANDS[${!i}]}
 
 	[ -z "${NEXT}" ] && error "Invalid flag: ${ARG}" print_help
 
+	[ "${NEXT}" = "server" ] && {
+		cmd=$((++i))
+		$NEXT ${!cmd}
+		continue
+	}
+
 	$NEXT
 done
-
-[ ! -d dependencies/ ] && get_dependencies
-[ ! -f app.cfg ] && gen_config
