@@ -1,0 +1,108 @@
+:root {
+	--green: #1DB954;
+	--black: #191414;
+}
+
+body {
+	margin-top: 80px;
+	text-align: center;
+	background-color: var(--black);
+	color: white;
+	font-family: sans-serif;
+}
+
+#header {
+	position: fixed;
+	display: flex;
+	align-items: center;
+	left: 0;
+	top: 0;
+	padding: 10px 25px;
+	width: 100vw;
+	height: 60px;
+	font-size: 25px;
+	color: var(--black);
+	background-color: var(--green);
+}
+
+.logo_container {
+	position: absolute;
+	right: 50px;
+	margin: 0px 25px;
+	width: 150px;
+	text-decoration: none;
+	outline: none;
+}
+
+#logo {
+	width: 150px;
+}
+
+#welcome {
+	display: inline-block;
+	width: 100vw;
+	text-align: center;
+}
+
+.content {
+	position: relative;
+	display: inline-block;
+	height: auto;
+	width: 100%;
+	color: white;
+}
+
+.container {
+	position: relative;
+	display: inline-block;
+	margin: 25px 0px;
+	padding: 25px;
+	height: auto;
+}
+.container.half {
+	width: calc(50% - 75px);
+	vertical-align: top;
+}
+
+h1 {
+	font-size: 48px;
+}
+
+h2 {
+}
+
+#parties {
+	text-align: left;
+}
+
+#friends {
+
+}
+
+#suggestions {
+
+}
+
+.party {
+
+}
+
+.me {
+
+}
+
+#status {
+
+}
+
+.button {
+	display: inline-block;
+	height: 40px;
+	line-height: 40px;
+	margin-top: 20px;
+	padding: 0px 40px;
+	border-radius: 25px;
+	text-decoration: none;
+	color: white;
+	background-color: var(--green);
+}
