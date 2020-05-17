@@ -1,12 +1,50 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charSet='utf-8'/>
+		<meta charset='utf-8'/>
 		<meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'/>
-		<title>Spotify Party</title>
+		<script type='text/javascript' src='/js/app.js'></script>
+		<link rel='stylesheet' href='/css/main.css'/>
+		<title>Quarantine Party</title>
 	</head>
 	<body>
-		<div id='status'></div>
+		<b id='header'>
+			<div id='welcome'></div>
+			<a class='logo_container' target='_blank'>
+				<img id='logo' src='/images/logos/Spotify_Logo_Black.png'/>
+			</a>
+		</b>
+		<div class='content'>
+
+			<div class='container half'>
+				
+				<h1>Join a party</h1>
+				<div id='parties'>
+					
+					<h2>Your Friends</h2>
+					<div id='friends'>
+						<!--A list of all the user's following and followers who have party servers open-->
+					</div>
+					
+					<h2>Trending Parties</h2>
+					<div id='suggestions'>
+						<!--A list of the most popular parties right now-->
+					</div>
+				
+				</div>
+			</div>
+
+			<div class='container half'>
+				<h1>Your Info</h1>
+				<div class='me'>
+					<h2>Currently Listening:</h2>
+					<div id='status'>
+						<!--An Iframe with the user's most recently played track will show up in here-->
+					</div>
+					<a class='button' href='/api/party/new'>Start A Party!</a>
+				</div>
+			
+			</div>
+		</div>
 	</body>
-	<script type='text/javascript' src='/js/app.js'/>
 </html>
