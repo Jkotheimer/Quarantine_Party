@@ -52,7 +52,7 @@ function hold {
 	return $STATUS
 }
 
-uncomment() {
+function uncomment {
 	sed -i "/${1}/s/^#//g" ${2}
 }
 
@@ -149,13 +149,9 @@ function httpd_config {
 	printf "$DONE"
 }
 
-function gen_config {
-	echo 'Not implemented'
-}
-
 function reset {
 	get_dependencies
-	#gen_config - not yet implemented
+	node_setup
 	exit 0
 }
 
@@ -164,12 +160,25 @@ function server {
 	sudo ./dependencies/httpd/bin/apachectl $1
 }
 
+function node_setup {
+	cd "$( dirname "${BASH_SOURCE[0]}" )/api/"
+	rm -r node_modules/
+	npm install express request cookie-parser
+	_node
+}
+
+function _node {
+	cd "$( dirname "${BASH_SOURCE[0]}" )/api/"
+	node app.js &
+}
+
 function print_help {
 	printf "\n${BLUE}HOW TO USE THIS SCRIPT:${NC}\n"
 	echo "--help          [-h] : Display this prompt"
-	echo "--reset         [-r] : Re-install all dependencies and reset all config files"
+	echo "--reset         [-r] : Restart the server and servlet"
 	echo "--dependencies  [-d] : Re-install all dependencies"
-	echo "--config        [-c] : reset all config files"
+	echo "--node_setup    [-ns]: Setup node by installing npm dependencies"
+	echo "--node          [-n] : Restart the node servlet"
 	echo "--server [cmd]  [-s] : Run an apachectl command"
 	echo "    example: ./run.sh -s status (returns status of the server)"
 	echo "________________________________________________________________________________________________"
@@ -178,8 +187,9 @@ function print_help {
 declare -A COMMANDS=([-h]=print_help [--help]=print_help \
 					[-s]=server [--server]=server \
 					[-r]=reset [--reset]=reset \
-					[-d]=get_dependencies [--dependencies]=get_dependencies \
-					[-c]=gen_config [--config]=gen_config)
+					[-ns]=node_setup [--node_setup]=node_setup \
+					[-n]=_node [--node]=_node \
+					[-d]=get_dependencies [--dependencies]=get_dependencies)
 
 [ -z $1 ] && reset
 for (( i=1; i<=$#; i++)); do
